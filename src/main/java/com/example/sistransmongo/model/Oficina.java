@@ -4,6 +4,8 @@ package com.example.sistransmongo.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document("oficinas")
 public class Oficina {
     @Id
@@ -13,13 +15,15 @@ public class Oficina {
     private String address;
     private int poi;
     private Usuario gerente;
+    private List<PuntoAtencion> puntosAtencion;
 
-    public Oficina(String id, String name, String address, int poi, Usuario gerente) {
+    public Oficina(String id, String name, String address, int poi, Usuario gerente, List<PuntoAtencion> puntosAtencion) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.poi = poi;
         this.gerente = gerente;
+        this.puntosAtencion = puntosAtencion;
     }
 
     public String getId() {
@@ -62,14 +66,31 @@ public class Oficina {
         this.gerente = gerente;
     }
 
+    public List<PuntoAtencion> getPuntosAtencion() {
+        return puntosAtencion;
+    }
+
+    public void setPuntosAtencion(List<PuntoAtencion> puntosAtencion) {
+        this.puntosAtencion = puntosAtencion;
+    }
+
+    public void addPuntoAtencion(PuntoAtencion puntoAtencion) {
+        this.puntosAtencion.add(puntoAtencion);
+    }
+
+    public void removePuntoAtencion(PuntoAtencion puntoAtencion) {
+        this.puntosAtencion.remove(puntoAtencion);
+    }
+
     @Override
     public String toString() {
         return "Oficina{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", poi=" + poi +
-                ", gerente=" + gerente +
+                ", poi=" + poi + '\'' +
+                ", gerente=" + gerente + '\'' +
+                ", puntosAtencion=" + puntosAtencion +
                 '}';
     }
 }

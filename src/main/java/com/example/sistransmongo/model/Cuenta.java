@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Document("cuentas")
 public class Cuenta {
@@ -15,14 +16,16 @@ public class Cuenta {
     private LocalDateTime lastTransaction;
     private Boolean state;
     private Usuario user;
+    private List<Operacion> operaciones;
 
-    public Cuenta(String accountNumber, String accountType, double amount, LocalDateTime lastTransaction, Boolean state, Usuario user) {
+    public Cuenta(String accountNumber, String accountType, double amount, LocalDateTime lastTransaction, Boolean state, Usuario user, List<Operacion> operaciones) {
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.amount = amount;
         this.lastTransaction = lastTransaction;
         this.state = state;
         this.user = user;
+        this.operaciones = operaciones;
     }
 
     public String getAccountNumber() {
@@ -73,6 +76,18 @@ public class Cuenta {
         this.user = user;
     }
 
+    public List<Operacion> getOperaciones() {
+        return operaciones;
+    }
+
+    public void setOperaciones(List<Operacion> operaciones) {
+        this.operaciones = operaciones;
+    }
+
+    public void addOperacion(Operacion operacion) {
+        this.operaciones.add(operacion);
+    }
+
     @Override
     public String toString() {
         return "Cuenta{" +
@@ -81,7 +96,8 @@ public class Cuenta {
                 ", amount=" + amount +
                 ", lastTransaction=" + lastTransaction +
                 ", state=" + state +
-                ", user=" + user +
+                ", user=" + user + "\n"+
+                ", operaciones=" + operaciones +
                 '}';
     }
 }
